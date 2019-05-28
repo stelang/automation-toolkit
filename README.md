@@ -16,13 +16,6 @@
        this name should match the name in parm.yaml
        see example below
     
-### parm.yaml
-
-    https://bitbucket.collegeboard.org/projects/LP/repos/cm-parm-examples/browse
-    
-### Getting Started
-
-    $ git clone https://<username>@bitbucket.collegeboard.org/scm/lp/cm-devops-parm.git
 
 ### create virtualenv
 
