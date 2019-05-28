@@ -1,0 +1,25 @@
+[
+  {
+    "_id": "costDash",
+    "_type": "dashboard",
+    "_source": {
+      "title": "Servicemanagement Cost Dashboard",
+      "hits": 0,
+      "description": "Cost Management Dashboard",
+      "panelsJSON": "[{\"panelIndex\":\"1\",\"gridData\":{\"x\":0,\"y\":9,\"w\":10,\"h\":6,\"i\":\"1\"},\"embeddableConfig\":{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":0,\"direction\":\"desc\"}}}},\"id\":\"costViz\",\"type\":\"visualization\",\"version\":\"6.2.4\"},{\"panelIndex\":\"2\",\"gridData\":{\"x\":0,\"y\":0,\"w\":6,\"h\":2,\"i\":\"2\"},\"id\":\"costTitleMonths\",\"type\":\"visualization\",\"version\":\"6.2.4\"},{\"panelIndex\":\"3\",\"gridData\":{\"x\":0,\"y\":17,\"w\":12,\"h\":17,\"i\":\"3\"},\"embeddableConfig\":{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":0,\"direction\":\"desc\"}}}},\"id\":\"costVizDays\",\"type\":\"visualization\",\"version\":\"6.2.4\"},{\"panelIndex\":\"4\",\"gridData\":{\"x\":0,\"y\":15,\"w\":5,\"h\":2,\"i\":\"4\"},\"id\":\"costTitleDays\",\"type\":\"visualization\",\"version\":\"6.2.4\"},{\"panelIndex\":\"5\",\"gridData\":{\"x\":0,\"y\":2,\"w\":10,\"h\":7,\"i\":\"5\"},\"version\":\"6.2.4\",\"type\":\"visualization\",\"id\":\"3cdd3880-c8ca-11e8-a1cd-6b299058f1f0\"}]",
+      "optionsJSON": "{\"darkTheme\":false,\"hidePanelTitles\":false,\"useMargins\":true}",
+      "version": 1,
+      "timeRestore": "false",
+      "timeTo": "now",
+      "timeFrom": "now-6M",
+      "refreshInterval": {
+        "display": "Off",
+        "pause": "false",
+        "value": 0
+      },
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"query\":{\"language\":\"lucene\",\"query\":\"\"},\"filter\":[],\"highlightAll\":true,\"version\":true}"
+      }
+    }
+  }
+]

@@ -1,0 +1,38 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: false
+ 
+  vars_files: 
+    - 'roles/install-metricbeat/vars/main.yaml'
+
+  tasks:
+    - name: 'Filter running EC2s within VPC'
+      ec2_remote_facts:
+        region: '{{ aws_region }}'
+        profile: '{{ boto_profile }}'
+        filters:
+          vpc-id: '{{ vpc }}'
+          instance-state-name: running
+          key_name: '{{ key_name }}'
+      register: all_instances
+
+    - name: 'add all_instances to ansible list of hosts'
+      add_host:
+        hostname: "{{ item.private_ip_address }}"
+        ansible_user: ec2-user
+        resource: "{{ item.id }}"
+      with_items: "{{ all_instances.instances }}"
+      changed_when: False
+    
+    - name: Ensure tags are present on a resource
+      ec2_tag:
+        region: '{{ aws_region }}'
+        profile: '{{ boto_profile }}'
+        state: present
+        resource: "{{ item.id }}"
+        tags:
+          Product: '{{ product_name }}'
+          parm_elk: enabled
+      with_items: "{{ all_instances.instances }}"
+    

@@ -1,0 +1,48 @@
+---
+- name: Check if Metricbeat Exists
+  stat: path=/etc/init.d/metricbeat
+  register: service_status
+
+- name: install metricbeat if not already installed
+  sudo: yes
+  command: "{{item}}"
+  when: not service_status.stat.exists
+  with_items:
+    - curl -L -O https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-6.2.4-x86_64.rpm
+    - sudo rpm -vi metricbeat-6.2.4-x86_64.rpm
+
+- name: copy metricbeat template
+  template:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    owner: '{{ item.owner }}'
+    group: '{{ item.group }}'
+    mode: '{{ item.mode }}'
+  when: not service_status.stat.exists
+  with_items:
+    - { src: '../output/metricbeat.yml', dest: '/etc/metricbeat/metricbeat.yml', owner: 'root', group: 'root', mode: '0644' }
+
+- name: Enable service metricbeat start on reboot
+  service:
+    name: metricbeat
+    enabled: yes
+
+- name: setup dashboards
+  sudo: yes
+  command: "{{item}}"
+  when: not service_status.stat.exists
+  with_items:
+    - sudo metricbeat modules enable system
+    - sudo metricbeat modules enable apache
+    - sudo metricbeat modules enable nginx
+    - sudo metricbeat modules enable docker
+    - sudo metricbeat modules enable redis
+    - sudo metricbeat modules enable kubernetes
+    - sudo metricbeat modules enable mysql
+    - sudo metricbeat setup
+
+- name: start metricbeat
+  service: 
+    name: metricbeat
+    state: started
+  when: not service_status.stat.exists

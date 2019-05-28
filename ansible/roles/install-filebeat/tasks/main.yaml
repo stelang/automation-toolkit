@@ -1,0 +1,34 @@
+---
+- name: Check if Filebeat Exists
+  stat: path=/etc/init.d/filebeat
+  register: service_status
+
+- name: install filebeat if not already installed
+  sudo: yes
+  command: "{{item}}"
+  when: not service_status.stat.exists
+  with_items:
+    - curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-6.2.4-x86_64.rpm
+    - sudo rpm -vi filebeat-6.2.4-x86_64.rpm
+
+- name: copy filebeat template
+  template:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    owner: '{{ item.owner }}'
+    group: '{{ item.group }}'
+    mode: '{{ item.mode }}'
+  when: not service_status.stat.exists
+  with_items:
+    - { src: '../output/filebeat.yml', dest: '/etc/filebeat/filebeat.yml', owner: 'root', group: 'root', mode: '0644' }
+
+- name: Enable service filebeat start on reboot
+  service:
+    name: filebeat
+    enabled: yes
+
+- name: start filebeat
+  service: 
+    name: filebeat 
+    state: started
+  when: not service_status.stat.exists

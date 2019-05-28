@@ -1,0 +1,16 @@
+boto_profile: {{ boto_profile }}
+account_id: {{ account_id }}
+aws_region: {{ aws_region }}
+
+
+product_name: "{{_product}}"
+ansible_ssh_extra_args: '-o StrictHostKeyChecking=no'
+
+env: {{_environment}}
+solution: cm-framework
+zone: {{ zone }}
+vpc_subnet_id: {{ vpc_subnet_id }}
+key_name: {{ key_name }}
+vpc: {{ vpc }}
+
+jenkins_ami: {{ jenkins_ami }}

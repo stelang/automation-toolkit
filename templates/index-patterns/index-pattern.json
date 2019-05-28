@@ -1,0 +1,7 @@
+{
+    "id": "metricbeat-{{_product}}",
+    "attributes": {
+        "timeFieldName": "@timestamp",
+        "title": "{{_product}}-metricbeat-*"
+    }
+}

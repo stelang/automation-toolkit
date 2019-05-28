@@ -1,0 +1,16 @@
+[
+  {
+    "_id": "costTitle",
+    "_type": "visualization",
+    "_source": {
+      "title": "Cost Title Monthly",
+      "visState": "{\"title\":\"Cost Title Monthly\",\"type\":\"markdown\",\"params\":{\"fontSize\":18,\"markdown\":\"## Monthly Cost per service in $USD\"},\"aggs\":[]}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{}"
+      }
+    }
+  }
+]

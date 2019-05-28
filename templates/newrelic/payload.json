@@ -1,0 +1,249 @@
+{
+    "dashboard": {
+      "metadata": { "version": 1 },
+      "title": "{{ title }}",
+      "icon":"heart",
+      "visibility": "all",
+      "editable": "editable_by_all",
+      "filter": {
+        "event_types": [
+          "Transaction"
+        ],
+        "attributes": [
+          "appName"
+        ]
+      },
+      "widgets": [
+        {
+          "visualization": "facet_bar_chart",
+          "account_id": {{ accountID }},
+          "data": [
+            {
+              "nrql": "SELECT count(*) FROM Transaction since 1 day ago where appName IN ({{ apps }}) FACET  appName LIMIT 50"
+            }
+          ],
+          "presentation": {
+            "title": "Microservices transactions",
+            "notes": null,
+            "threshold": {
+              "red": 18000000,
+              "yellow": 8000000
+            }
+          },
+          "layout": {
+            "width": 1,
+            "height": 1,
+            "row": 1,
+            "column": 1
+          }
+        },
+        {
+          "visualization": "facet_bar_chart",
+          "account_id": {{ accountID }},
+          "data": [
+            {
+              "nrql": "SELECT count(*) FROM Transaction since 1 day ago where appName IN ({{ apps }})  facet name"
+            }
+          ],
+          "presentation": {
+            "title": "Transaction types",
+            "notes": null,
+            "threshold": {
+              "red": 18000000,
+              "yellow": 8000000
+            }
+          },
+          "layout": {
+            "width": 1,
+            "height": 1,
+            "row": 1,
+            "column": 1
+          }
+        },
+        {
+          "visualization": "facet_pie_chart",
+          "account_id": {{ accountID }},
+          "data": [
+            {
+              "nrql": "SELECT count(*) FROM Transaction since 1 day ago where appName IN ({{ apps }}) FACET  httpResponseCode"
+            }
+          ],
+          "presentation": {
+            "title": "Response Codes",
+            "notes": null,
+            "threshold": {
+              "red": 18000000,
+              "yellow": 8000000
+            }
+          },
+          "layout": {
+            "width": 1,
+            "height": 1,
+            "row": 1,
+            "column": 1
+          }
+        },
+        {
+          "visualization": "facet_bar_chart",
+          "account_id": {{ accountID }},
+          "data": [
+            {
+              "nrql": "SELECT count(*) FROM Transaction where appName IN ({{ apps }}) since 7 day ago FACET  weekdayOf(timestamp)"
+            }
+          ],
+          "presentation": {
+            "title": "Busiest Days",
+            "notes": null,
+            "threshold": {
+              "red": 18000000,
+              "yellow": 8000000
+            }
+          },
+          "layout": {
+            "width": 1,
+            "height": 1,
+            "row": 1,
+            "column": 1
+          }
+        },
+        {
+            "visualization": "faceted_area_chart",
+            "account_id": {{ accountID }},
+            "data": [
+                {
+                "nrql": "SELECT average(duration) FROM Transaction where appName IN ({{ apps }}) FACET name TIMESERIES since 5 minutes ago"
+                }
+            ],
+            "presentation": {
+                "title": "Average Response Time (Backend)",
+                "notes": null,
+                "threshold": {
+                "red": 18000000,
+                "yellow": 8000000
+                }
+            },
+            "layout": {
+                "width": 1,
+                "height": 1,
+                "row": 1,
+                "column": 1
+            }
+            },
+        {
+          "visualization": "facet_bar_chart",
+          "account_id": {{ accountID }},
+          "data": [
+            {
+              "nrql": "SELECT count(*) FROM Transaction where appName IN ({{ apps }}) since 1 day ago FACET  host LIMIT 200"
+            }
+          ],
+          "presentation": {
+            "title": "Host load",
+            "notes": null,
+            "threshold": {
+              "red": 18000000,
+              "yellow": 8000000
+            }
+          },
+          "layout": {
+            "width": 1,
+            "height": 1,
+            "row": 1,
+            "column": 1
+          }
+        },
+        {
+            "visualization": "facet_bar_chart",
+            "account_id": {{ accountID }},
+            "data": [
+              {
+                "nrql": "SELECT count(*) FROM Transaction where appName IN ({{ apps }}) facet name TIMESERIES since 5 minutes ago"
+              }
+            ],
+            "presentation": {
+              "title": "Overall throughput by Transaction Name",
+              "notes": null,
+              "threshold": {
+                "red": 18000000,
+                "yellow": 8000000
+              }
+            },
+            "layout": {
+              "width": 1,
+              "height": 1,
+              "row": 1,
+              "column": 1
+            }
+        },
+        {
+            "visualization": "histogram",
+            "account_id": {{ accountID }},
+            "data": [
+              {
+                "nrql": "SELECT histogram((duration*1000), 40 ,20) FROM Transaction where appName IN ({{ apps }}) SINCE 1 day ago"
+              }
+            ],
+            "presentation": {
+              "title": "Application Server Response Time (ms)",
+              "notes": null,
+              "threshold": {
+                "red": 18000000,
+                "yellow": 8000000
+              }
+            },
+            "layout": {
+              "width": 1,
+              "height": 1,
+              "row": 1,
+              "column": 1
+            }
+        },
+        {
+          "visualization": "faceted_area_chart",
+          "account_id": {{ accountID }},
+          "data": [
+            {
+              "nrql": "SELECT average(duration) FROM Transaction where appName IN ({{ apps }}) since 1 day ago  TIMESERIES AUTO FACET host"
+            }
+          ],
+          "presentation": {
+            "title": "Host performance",
+            "notes": null,
+            "threshold": {
+              "red": 18000000,
+              "yellow": 8000000
+            }
+          },
+          "layout": {
+            "width": 1,
+            "height": 1,
+            "row": 1,
+            "column": 1
+          }
+        },
+        {
+          "visualization": "attribute_sheet",
+          "account_id": {{ accountID }},
+          "data": [
+            {
+              "nrql": "SELECT percentile(duration,99,95,75,50) FROM Transaction where appName IN ({{ apps }}) SINCE 1 day ago"
+            }
+          ],
+          "presentation": {
+            "title": "Percentile breakdown of back-end response times",
+            "notes": null,
+            "threshold": {
+              "red": 18000000,
+              "yellow": 8000000
+            }
+          },
+          "layout": {
+            "width": 1,
+            "height": 1,
+            "row": 1,
+            "column": 1
+          }
+        }
+      ]
+    }
+  }

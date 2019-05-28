@@ -1,0 +1,15 @@
+---
+- name: Check if Metricbeat Exists
+  stat: path=/etc/init.d/metricbeat
+  register: service_status
+
+- name: stop metricbeat if exists
+  service: 
+    name: metricbeat
+    state: stopped
+  when: service_status.stat.exists
+
+- name: remove the metricbeat package
+  yum:
+    name: metricbeat
+    state: absent

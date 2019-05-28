@@ -1,0 +1,16 @@
+[
+  {
+    "_id": "7e313210-c7ed-11e8-a1cd-6b299058f1f0",
+    "_type": "visualization",
+    "_source": {
+      "title": "Cost Title Daily",
+      "visState": "{\"title\":\"Cost Title Daily\",\"type\":\"markdown\",\"params\":{\"fontSize\":18,\"markdown\":\"## Daily Cost per service in $USD\"},\"aggs\":[]}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{}"
+      }
+    }
+  }
+]

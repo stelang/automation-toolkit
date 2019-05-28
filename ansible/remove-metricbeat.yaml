@@ -1,0 +1,35 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - name: Echo info
+      debug:
+        msg: "Region is {{ aws_region }}, profile is {{ boto_profile }}"
+
+    - name: 'Find product instances tagged'
+      ec2_instance_facts:
+        region: '{{ aws_region }}'
+        profile: '{{ boto_profile }}'
+        filters:
+          "tag:Product": '{{ product_name }}'
+          "tag:parm_elk": 'enabled'
+          vpc-id: '{{ vpc }}'
+      register: product_instances
+
+    - name: 'add tagged ec2 to ansible list of hosts'
+      add_host:
+        hostname: "{{ item.private_ip_address }}"
+        ansible_user: ec2-user
+      with_items: "{{ product_instances.instances }}"
+      changed_when: False
+
+- hosts: all
+  become: true
+  become_method: sudo
+  gather_facts: false
+
+  roles:
+    - role: remove-metricbeat
+      with_items: "{{ product_instances }}"

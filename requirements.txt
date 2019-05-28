@@ -1,0 +1,14 @@
+boto3
+pyyaml
+requests
+simplejson
+jinja2
+boto
+ansible
+subprocess.run
+docopt
+progressbar
+sphinx
+sphinx_rtd_theme
+aiohttp
+asyncio
